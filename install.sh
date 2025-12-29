@@ -3,16 +3,30 @@
 # dotfiles フォルダの場所
 DOT_DIR="$HOME/dotfiles"
 
+# -------------------------------------------------
+# 1. ツールのインストール
+# -------------------------------------------------
+echo "installing required tools..."
+if [ "$(uname)" == "Darwin" ]; then
+  if command -v brew >/dev/null 2>&1; then
+    echo "Installing/Updating Zsh plugins via Homebrew..."
+    brew install zsh-autosuggestions zsh-syntax-highlighting
+  else
+    echo "Error: Homebrew is not installed. Please install it first."
+  fi
+fi  
+
 echo "creating symbolic links..."
 
 # --------------------------------------------------
-# 1. ホームディレクトリ直下に置くファイル群
+# 2. ホームディレクトリ直下に置くファイル群
 # --------------------------------------------------
 
 files=(
   ".zshrc"
   ".zsh_prompt"
   ".zsh_functions"
+  ".zsh_plugins"
   ".bashrc"
   ".vimrc"
   ".gitconfig"
@@ -25,7 +39,7 @@ for file in "${files[@]}"; do
 done
 
 # -------------------------------------------------
-# 2. .config フォルダに入れるもの
+# 3. .config フォルダに入れるもの
 # -------------------------------------------------
 
 # ghostty 
@@ -36,4 +50,6 @@ if command -v ghostty > /dev/null 2>&1; then
 else
   echo "Ghostty not found, skipping..."
 fi
+
+echo "All setting has been completed!!!!"
 

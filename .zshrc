@@ -32,3 +32,8 @@ if [ -f ~/.zsh_prompt ]; then
   source ~/.zsh_prompt
 fi
 
+# -- プラグイン設定の読み込み --
+if [ -f ~/.zsh_plugins ]; then
+  source ~/.zsh_plugins
+fi
+
