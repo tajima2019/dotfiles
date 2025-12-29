@@ -15,6 +15,8 @@ files=(
   ".zsh_functions"
   ".bashrc"
   ".vimrc"
+  ".gitconfig"
+  ".hushlogin"
 )
 
 for file in "${files[@]}"; do
