@@ -1,0 +1,14 @@
+# プロンプト設定
+
+# kento ~ % という表記へ
+export PROMPT="%F{cyan}%n%f %~ %# "
+
+# Git
+autoload -Uz vcs_info
+precmd() { vcs_info }
+zstyle ':vcs_info:git:*' formats '%F{cyan}(%b)%f '
+zstyle ':vcs_info:*' enable git
+setopt PROMPT_SUBST
+
+export PROMPT='%F{green}%n%f %~ ${vcs_info_msg_0_}%# '
+
