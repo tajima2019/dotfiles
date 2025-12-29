@@ -1,18 +1,18 @@
-autosuggest_paths = (
+autosuggest_paths=(
   "/opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
   "/usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
 )
 
-syntax_highlight_paths = (
+syntax_highlight_paths=(
   "/opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
   "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 )
 
 # 存在するパスを見つけて読み込む関数
 source_if_exists() {
-  for path in "$@"; do
-    if [ -f "$path" ]; then
-      source "$path"
+  for p in "$@"; do
+    if [ -f "$p" ]; then
+      source "$p"
       return 
     fi
   done
