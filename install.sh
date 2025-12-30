@@ -45,8 +45,11 @@ done
 # ghostty 
 if command -v ghostty > /dev/null 2>&1; then
   mkdir -p "$HOME/.config/ghostty"
+  
   ln -snf "$DOT_DIR/ghostty/config" "$HOME/.config/ghostty/config"
-  echo "Linked: Ghostty config"
+  ln -snf "$DOT_DIR/ghostty/keybindings" "$HOME/.config/ghostty/keybindings"
+
+  echo "Linked: Ghostty config & keybindings"
 else
   echo "Ghostty not found, skipping..."
 fi
