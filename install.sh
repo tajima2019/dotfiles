@@ -54,5 +54,16 @@ else
   echo "Ghostty not found, skipping..."
 fi
 
+# nvim
+if command -v nvim > /dev/null 2>&1; then
+  mkdir -p "$HOME/.config"
+
+  ln -snf "$DOT_DIR/nvim" "$HOME/.config/nvim"
+
+  echo "Linked: Nvim directory" 
+else
+  echo "Nvim not found, skipping..."
+fi
+
 echo "All setting has been completed!!!!"
 
