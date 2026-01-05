@@ -1,4 +1,5 @@
 # -- 起動時の表示 --
+figlet -c "Hello Kento" | lolcat 
 neofetch
 
 # -- パス設定 --
@@ -21,6 +22,10 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
+
+# -- エイリアス設定 --
+alias vim="nvim"
+alias vi="nvim"
 
 # -- 自作関数の読み込み --
 if [ -f ~/.zsh_functions ]; then

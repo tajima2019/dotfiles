@@ -1,3 +1,4 @@
+# typstのテンプレートを使用するための関数
 export-typst-template() {
   local repo_url="git@github.com:tajima2019/typst-template.git"
   local dest_dir="${1:-.}"

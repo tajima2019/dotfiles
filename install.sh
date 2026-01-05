@@ -9,8 +9,9 @@ DOT_DIR="$HOME/dotfiles"
 echo "installing required tools..."
 if [ "$(uname)" == "Darwin" ]; then
   if command -v brew >/dev/null 2>&1; then
-    echo "Installing/Updating Zsh plugins via Homebrew..."
-    brew install zsh-autosuggestions zsh-syntax-highlighting
+    echo "Installing/Updating Homebrew..."
+    brew install zsh-autosuggestions zsh-syntax-highlighting navi fzf cmatrix cava neofetch figlet lolcat tty-clock
+    brew install --cask raycast
   else
     echo "Error: Homebrew is not installed. Please install it first."
   fi
@@ -28,7 +29,6 @@ files=(
   ".zsh_functions"
   ".zsh_plugins"
   ".bashrc"
-  ".vimrc"
   ".gitconfig"
   ".hushlogin"
 )
@@ -63,6 +63,19 @@ if command -v nvim > /dev/null 2>&1; then
   echo "Linked: Nvim directory" 
 else
   echo "Nvim not found, skipping..."
+fi
+
+# navi
+if command -v navi > /dev/null 2>&1; then
+  echo "Linking navi custom cheats..."
+
+  NAVI_DATA_DIR="$HOME/.local/share/navi/cheats"
+
+  mkdir -p "$NAVI_DATA_DIR"
+  ln -snf "$HOME/dotfiles/cheats" "$NAVI_DATA_DIR/custom_cheats"
+  echo "Linked: custom cheats to navi"
+else
+  echo "Navi not found, skipping..."
 fi
 
 echo "All setting has been completed!!!!"
