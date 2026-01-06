@@ -31,6 +31,9 @@ macos-titlebar-style = hidden
 # windowの影を削除
 macos-window-shadow = false
 
+# macでのアイコン設定
+macos-icon = holographic
+
 # 水平方向のパディング
 window-padding-x = 10
 

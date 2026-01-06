@@ -10,7 +10,7 @@ echo "installing required tools..."
 if [ "$(uname)" == "Darwin" ]; then
   if command -v brew >/dev/null 2>&1; then
     echo "Installing/Updating Homebrew..."
-    brew install zsh-autosuggestions zsh-syntax-highlighting navi fzf cmatrix cava fastfetch figlet lolcat tty-clock
+    brew install zsh-autosuggestions zsh-syntax-highlighting navi fzf cmatrix cava fastfetch figlet lolcat tty-clock yazi ffmpegthumbnailer unar jq poppler fd ripgrep zoxide
     brew install --cask raycast
   else
     echo "Error: Homebrew is not installed. Please install it first."
