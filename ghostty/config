@@ -1,5 +1,5 @@
 # テーマ設定
-theme = TokyoNight Night
+theme = TokyoNight
 
 # フォントサイズ
 font-size = 15
@@ -38,7 +38,7 @@ window-padding-x = 10
 window-padding-y = 40
 
 # 背景透過度の設定
-background-opacity = 0.7
+background-opacity = 0.8
 
 # 前回のウィンドウサイズを記憶しない
 window-save-state = never

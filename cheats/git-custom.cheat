@@ -1,24 +1,27 @@
-% git, kento
+% git, push, kento
 
 # 変更を全部ステージして、メッセージ付きでコミットしてPushまで一気にする
 git add . && git commit -m "<message>" && git push origin <current_branch>
 
+# <current_branch>: 今いるブランチ名を自動取得して埋め込む
+$ current_branch: git branch --show-current
+
+% git, branch, kento
 # ローカルのブランチを選択して削除する
 git branch -D <branch_to_delete>
 
-# 直前のコミットを取り消す（ファイルの変更はそのまま残す / soft reset）
-git reset --soft HEAD^
-
-# ログを綺麗なグラフで見る
-git log --graph --all --format='%x09%C(cyan bold)%an%Creset%x09%C(yellow)%h%Creset %C(magenta reverse)%d%Creset %s'
-
-# -- 変数定義 --
-# <current_branch>: 今いるブランチ名を自動取得して埋め込む
-$ current_branch: git branch --show-current
 # <branch_to_delete>: 全ブランチ一覧を表示して選ばせる（mainと現在ブランチは除外）
 $ branch_to_delete: git branch --format="%(refname:short)" | grep -v "main" | grep -v "$(git branch --show-current)"
 
-$ git, diff, kento
+% git, reset, kento
+# 直前のコミットを取り消す（ファイルの変更はそのまま残す / soft reset）
+git reset --soft HEAD^
+
+% git, log, kento
+# ログを綺麗なグラフで見る
+git log --graph --all --format='%x09%C(cyan bold)%an%Creset%x09%C(yellow)%h%Creset %C(magenta reverse)%d%Creset %s'
+
+% git, diff, kento
 
 # まだaddしていない変更（作業ツリー）の差分を見る
 git diff

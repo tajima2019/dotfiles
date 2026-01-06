@@ -1,6 +1,6 @@
 # -- 起動時の表示 --
 figlet -c "Hello Kento" | lolcat 
-neofetch
+fastfetch
 
 # -- パス設定 --
 export PATH="$HOME/go/bin:$PATH"
