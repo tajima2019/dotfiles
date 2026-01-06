@@ -42,7 +42,7 @@ done
 # 3. .config フォルダに入れるもの
 # -------------------------------------------------
 
-# ghostty 
+# -- ghostty --
 if command -v ghostty > /dev/null 2>&1; then
   mkdir -p "$HOME/.config/ghostty"
   
@@ -54,7 +54,7 @@ else
   echo "Ghostty not found, skipping..."
 fi
 
-# nvim
+# -- nvim --
 if command -v nvim > /dev/null 2>&1; then
   mkdir -p "$HOME/.config"
 
@@ -65,7 +65,7 @@ else
   echo "Nvim not found, skipping..."
 fi
 
-# navi
+# -- navi --
 if command -v navi > /dev/null 2>&1; then
   echo "Linking navi custom cheats..."
 
@@ -76,6 +76,15 @@ if command -v navi > /dev/null 2>&1; then
   echo "Linked: custom cheats to navi"
 else
   echo "Navi not found, skipping..."
+fi
+
+# -- fastfetch --
+if command -v fastfetch > /dev/null 2>&1; then
+  mkdir -p "$HOME/.config/fastfetch"
+  ln -snf "$DOT_DIR/fastfetch/config.jsonc" "$HOME/.config/fastfetch/config.jsonc"
+  echo "Linked: Fastfetch config"
+else
+  echo "Fastfetch not found, skipping..."
 fi
 
 echo "All setting has been completed!!!!"
