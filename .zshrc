@@ -7,6 +7,10 @@ export PATH="$HOME/go/bin:$PATH"
 export NVM_DIR="$HOME/.nvm"
 [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
 
+# -- エディタの設定 --
+export EDITOR='nvim'
+export VISUAL='nvim'
+
 # -- conda初期設定 --
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
