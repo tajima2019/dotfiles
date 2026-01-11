@@ -4,7 +4,7 @@ return {
     "akinsho/bufferline.nvim",
     version = "*",
     dependencies = { "nvim-tree/nvim-web-devicons" },
-    even = "VeryLazy",
+    event = "VeryLazy",
 
     keys = {
       -- <Shift>+ l: 次のタブへ移動
