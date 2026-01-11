@@ -60,7 +60,7 @@ sbar.exec(aerospace_cmd .. " list-workspaces --all", function(workspaces)
       local selected = (env.FOCUSED_WORKSPACE == sid)
 
       -- アニメーション設定
-      sbar.animate("tanh", 10, function()
+      sbar.animate("tanh", 1, function()
         space:set({
           icon = {
             highlight = selected,
