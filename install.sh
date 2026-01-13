@@ -14,6 +14,8 @@ if [ "$(uname)" == "Darwin" ]; then
     brew tap FelixKratz/formulae
 
     brew install zsh-autosuggestions zsh-syntax-highlighting navi fzf cmatrix cava fastfetch figlet lolcat tty-clock yazi ffmpegthumbnailer unar jq poppler fd ripgrep zoxide sketchybar lua switchaudio-osx nowplaying-cli pnpm
+    
+    brew install --cask ghostty
   
     brew install --cask raycast
     brew install --cask nikitabobko/tap/aerospace
