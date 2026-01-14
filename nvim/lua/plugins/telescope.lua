@@ -5,6 +5,14 @@ return {
     tag = "0.1.8",
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
+      require("telescope").setup({
+        defaults = {
+          preview = {
+            treesitter = false,
+          },
+        },
+      })
+
       local builtin = require("telescope.builtin")
       -- <Space>ff でファイル検索、<Space>fg で文字検索
       vim.keymap.set("n", "<leader>ff", builtin.find_files, {})

@@ -13,11 +13,10 @@ return {
       { "<leader>e", ":Neotree toggle<CR>", desc = "Toggle Explorer" },
     },
     opts = {
-      window = { width = 30 },
+      window = { width = 30, position = "right" },
       filesystem = {
         filtered_items = { visible = true }, -- 隠しファイルも設定
       },
     },
   },
 }
-

@@ -1,10 +1,10 @@
- -- spaceをリーダーにする
-vim.g.mapleader = " " 
+-- spaceをリーダーにする
+vim.g.mapleader = " "
 
 local keymap = vim.keymap
 
--- jkでインサートモードを抜ける 
-keymap.set("i", "jk", "<ESC>", { silent = true})
+-- jkでインサートモードを抜ける
+keymap.set("i", "jk", "<ESC>", { silent = true })
 
 -- 検索ハイライトを消す(Space + h)
 keymap.set("n", "<leader>h", ":nohlsearch<CR>")
@@ -15,3 +15,5 @@ keymap.set("n", "<leader>w", ":w<CR>")
 -- 終了 (Space + q)
 keymap.set("n", "<leader>q", ":q<CR>")
 
+-- ターミナルモードを抜ける (Esc)
+keymap.set("t", "<Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })

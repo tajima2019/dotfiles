@@ -15,3 +15,6 @@ opt.smartcase = true
 opt.termguicolors = true            -- 24bit color
 opt.clipboard:append("unnamedplus") -- クリップボード共有
 opt.mouse = "a"                     -- マウス有効化
+
+opt.encoding = "utf-8"              -- 内部文字コード
+opt.fileencoding = "utf-8"          -- ファイルの文字コード

@@ -19,6 +19,7 @@ if [ "$(uname)" == "Darwin" ]; then
   
     brew install --cask raycast
     brew install --cask nikitabobko/tap/aerospace
+    brew install --cask alt-tab
     brew install --cask sf-symbols
 
     # フォントのインストール
