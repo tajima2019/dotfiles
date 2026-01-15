@@ -38,3 +38,6 @@ function y() {
   rm -f -- "$tmp"
 }
 
+# zoxide
+eval "$(zoxide init zsh)"
+

@@ -1,4 +1,7 @@
 #!/bin/bash
+set -Eeuo pipefail
+IFS=$'\n\t'
+set -x
 
 # dotfiles フォルダの場所
 DOT_DIR="$HOME/dotfiles"
@@ -127,11 +130,13 @@ if command -v sketchybar > /dev/null 2>&1; then
   fi
 
   # SbarLuaのインストール
-  if [ ! -f "$HOME/.local/share/sketchybar_lua.so" ] && [ ! -f "/usr/local/lib/sketchybar/sketchybar.so" ]; then
+  if [ ! -f "$HOME/.local/share/sketchybar_lua/sketchybar.so" ] && [ ! -f "/opt/homebrew/lib/sketchybar/sketchybar.so" ]; then
     echo "Compiling and Installing StarLua..."
     if [ -d "/tmp/SbarLua" ]; then rm -rf /tmp/SbarLua; fi
     git clone https://github.com/FelixKratz/SbarLua.git /tmp/SbarLua
-    cd /tmp/SbarLua/ && make install && cd -
+    pushd /tmp/SbarLua > /dev/null
+    make install
+    popd > /dev/null
     rm -rf /tmp/SbarLua/
   else
     echo "SbarLua is already installed."
@@ -147,15 +152,13 @@ if command -v sketchybar > /dev/null 2>&1; then
   echo "Linked: SketchyBar directory and dependencies installed."
 
   # フォントの更新
-  if [ -f "$DOT_DIR/sketchybar/icon_updater.sh" ]; then
-    echo "Running icon_updater.sh..."
-    pushd "$DOT_DIR/sketchybar" > /dev/null
-    ./icon_updater.sh
-    popd > /dev/null
-  fi
-  
-  brew services restart sketchybar
-  sketchybar --reload
+  # if [ -f "$DOT_DIR/sketchybar/icon_updater.sh" ]; then
+  #   pushd "$DOT_DIR/sketchybar" > /dev/null
+  #   ./icon_updater.sh
+  #   popd > /dev/null
+  # fi
+  brew services stop sketchybar || true
+  brew services start sketchybar
 else
   echo "SketchyBar not found, skipping..."
 fi

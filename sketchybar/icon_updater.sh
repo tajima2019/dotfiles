@@ -37,4 +37,3 @@ rm -rf tmp_icons
 
 echo "Font installed successfully to $HOME/Library/Fonts/sketchybar-app-font-bg.ttf"
 
-brew services restart sketchybar
