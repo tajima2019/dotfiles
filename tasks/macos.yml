@@ -37,6 +37,8 @@
     - switchaudio-osx
     - nowplaying-cli
     - pnpm
+    - lazygit
+    - gh
 
 # Caskのインストール
 - name: Install Homebrew Casks
