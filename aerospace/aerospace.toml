@@ -24,6 +24,10 @@ run = 'move-node-to-workspace S'
 if.app-id = 'notion.id'
 run = 'move-node-to-workspace N'
 
+[[on-window-detected]]
+if.app-id = 'us.zoom.xos'
+run = 'move-node-to-workspace Z'
+
 # ==============================
 # 見た目 (Gaps)
 # ==============================
@@ -81,6 +85,7 @@ alt-9 = 'workspace 9'
 alt-0 = 'workspace 10'
 alt-s = 'workspace S'  # Slack用ワークスペース
 alt-n = 'workspace N'  # Notion用ワークスペース
+alt-z = 'workspace Z'  # Zoom用ワークスペース
 
 # --- ワークスペースへウィンドウを飛ばす ---
 alt-shift-1 = 'move-node-to-workspace 1'
@@ -95,6 +100,7 @@ alt-shift-9 = 'move-node-to-workspace 9'
 alt-shift-0 = 'move-node-to-workspace 10'
 alt-shift-s = 'move-node-to-workspace S'  # Slack用ワークスペース
 alt-shift-n = 'move-node-to-workspace N'  # Notion用ワークスペース
+alt-shift-z = 'move-node-to-workspace Z'  # Zoom用ワークスペース
 
 # 設定リロード 
 alt-shift-c = 'reload-config'

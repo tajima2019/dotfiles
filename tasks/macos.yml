@@ -14,8 +14,6 @@
     name: "{{ item }}"
     state: present
   loop:
-    - zsh-autosuggestions 
-    - zsh-syntax-highlighting 
     - navi
     - fzf
     - cmatrix
@@ -39,6 +37,7 @@
     - pnpm
     - lazygit
     - gh
+    - sheldon
 
 # Caskのインストール
 - name: Install Homebrew Casks

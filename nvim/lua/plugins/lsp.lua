@@ -10,7 +10,7 @@ return {
       -- Mason(インストーラー) の設定
       require("mason").setup()
       require("mason-lspconfig").setup({
-        ensure_installed = { "gopls", "lua_ls", "ts_ls", "pyright" }, -- 自動で入れたいものを書く
+        ensure_installed = { "gopls", "lua_ls", "ts_ls", "pyright", "yamlls" }, -- 自動で入れたいものを書く
 
         -- handlers: インストールされたLSPごとの設定をここに書く
         handlers = {
@@ -55,6 +55,28 @@ return {
                   }
                 }
               }
+            })
+          end,
+
+          -- yaml用の設定を追加
+          ["yamlls"] = function()
+            require("lspconfig").yamlls.setup({
+              settings = {
+                yaml = {
+                  -- スキーマの自動ダウンロードを有効化
+                  schemaStore = {
+                    enable = true,
+                    url = "https://www.schemastore.org/api/json/catalog.json",
+                  },
+                  -- フォーマットの設定
+                  format = {
+                    enable = true,
+                  },
+                  validate = true,
+                  completion = true,
+                  hover = true,
+                },
+              },
             })
           end,
         },

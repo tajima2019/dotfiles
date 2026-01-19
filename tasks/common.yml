@@ -12,6 +12,7 @@
     - ghostty
     - fastfetch
     - aerospace
+    - sheldon
 
 # navi用の特殊なディレクトリ作成
 - name: Create navi cheat directories
@@ -49,6 +50,7 @@
     - { src: 'ghostty/keybindings', dest: 'ghostty/keybindings' }
     - { src: 'fastfetch/config.jsonc', dest: 'fastfetch/config.jsonc' }
     - { src: 'aerospace/aerospace.toml', dest: 'aerospace/aerospace.toml' }
+    - { src: 'sheldon/plugins.toml', dest: 'sheldon/plugins.toml' }
 
     # ディレクトリごとリンクするもの
     - { src: 'nvim', dest: 'nvim' }

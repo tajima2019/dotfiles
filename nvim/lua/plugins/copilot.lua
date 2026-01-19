@@ -6,6 +6,14 @@ return {
     event = "InsertEnter",
     config = function()
       require("copilot").setup({
+        -- ファイルタイプごとの有効/無効設定
+        filetypes = {
+          yaml = true,
+          markdown = true,
+          help = false,
+          gitcommit = true,
+          ["."] = true,
+        },
         -- 提案の設定
         suggestion = {
           enabled = true,

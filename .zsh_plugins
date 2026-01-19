@@ -1,13 +1,16 @@
-# コマンド補完 & ハイライト
-autosuggest_paths=(
-  "/opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh"       # for mac
-  # "/usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"  # for linux
-)
+# Sheldon の初期化 
+eval "$(sheldon source)"
 
-syntax_highlight_paths=(
-  "/opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"      # for mac
-  # "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" # for linux
-)
+# zsh-vi-modeと競合せずにzsh-history-substring-search の設定
+function zvm_after_init() {
+  # 上矢印キーと Ctrl + P で履歴検索
+  bindkey '^[[A' history-substring-search-up
+  bindkey '^P' history-substring-search-up
+
+  # 下矢印キーと Ctrl + N で履歴検索
+  bindkey '^[[B' history-substring-search-down
+  bindkey '^N' history-substring-search-down
+}
 
 # 存在するパスを見つけて読み込む関数
 source_if_exists() {
