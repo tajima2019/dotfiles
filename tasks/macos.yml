@@ -1,0 +1,86 @@
+# Tap(リポジトリ)の追加
+- name: Add Homebrew Taps
+  community.general.homebrew_tap:
+    name: FelixKratz/formulae
+    state: present
+
+- name: UpdateHomebrew
+  community.general.homebrew:
+    update_homebrew: yes
+
+# CUIのインストール
+- name: Install Homebrew Packages
+  community.general.homebrew:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - zsh-autosuggestions 
+    - zsh-syntax-highlighting 
+    - navi
+    - fzf
+    - cmatrix
+    - cava
+    - fastfetch
+    - figlet
+    - lolcat
+    - tty-clock
+    - yazi
+    - ffmpegthumbnailer
+    - unar
+    - jq
+    - poppler
+    - fd
+    - ripgrep
+    - zoxide
+    - sketchybar
+    - lua
+    - switchaudio-osx
+    - nowplaying-cli
+    - pnpm
+
+# Caskのインストール
+- name: Install Homebrew Casks
+  community.general.homebrew_cask:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - ghostty
+    - raycast
+    - nikitabobko/tap/aerospace
+    - alt-tab
+    - sf-symbols
+    - font-hack-nerd-font
+    - font-sf-pro
+    - font-sf-mono
+
+# SketchyBar 関連の処理
+# フォントのダウンロード
+- name: Download SketchyBar App Font
+  get_url:
+    url: https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v2.0.5/sketchybar-app-font.ttf
+    dest: "{{ ansible_facts.env.HOME }}/Library/fonts/sketchybar-app-font.ttf"
+
+- name: Download Sketchybar App Font BG
+  get_url:
+    url: https://github.com/SoichiroYamane/sketchybar-app-font-bg/releases/tag/v0.0.11/sketchybar-app-font-bg.ttf 
+    dest: "{{ ansible_facts.env.HOME }}/Library/Fonts/sketchybar-app-font-bg.ttf"
+
+# SbarLua のインストール
+- name: Clone SbarLua
+  git:
+    repo: https://github.com/FelixKratz/SbarLua.git
+    dest: /tmp/SbarLua
+    force: yes
+
+- name: Compile and Install SbarLua
+  shell: |
+    cd /tmp/SbarLua
+    make install
+  args:
+    creates: /usr/local/lib/sketchybar.so
+  become: yes
+
+# SketchyBar サービスの起動
+- name: Restart SketchyBar service
+  shell: brew services stop sketchybar || true && brew services start sketchybar
+

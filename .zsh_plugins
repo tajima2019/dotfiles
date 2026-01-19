@@ -41,3 +41,5 @@ function y() {
 # zoxide
 eval "$(zoxide init zsh)"
 
+# fzf
+source <(fzf --zsh)

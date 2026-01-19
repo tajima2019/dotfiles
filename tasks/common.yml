@@ -1,0 +1,74 @@
+- name: Define dotfiles directory
+  set_fact:
+    dotfiles_dir: "{{ ansible_facts.env.HOME }}/dotfiles"
+
+# ディレクトリ作成
+- name: Create .config directories
+  file:
+    path: "{{ ansible_facts.env.HOME }}/.config/{{ item }}"
+    state: directory
+    mode: '0755'
+  loop:
+    - ghostty
+    - fastfetch
+    - aerospace
+
+# navi用の特殊なディレクトリ作成
+- name: Create navi cheat directories
+  file:
+    path: "{{ ansible_facts.env.HOME }}/.local/share/navi/cheats"
+    state: directory
+    recurse: yes
+
+# シンボリックリンク作成
+# ホームディレクトリ直下(.zshrcなど)
+- name: Link dotfiles to Home
+  file:
+    src: "{{ dotfiles_dir }}/{{ item }}"
+    dest: "{{ ansible_facts.env.HOME }}/{{ item }}"
+    state: link
+    force: yes
+  loop:
+    - .zshrc
+    - .zsh_prompt
+    - .zsh_plugins
+    - .bashrc
+    - .gitconfig
+    - .hushlogin
+
+# .config 内へのリンク
+- name: Link config files
+  file:
+    src: "{{ dotfiles_dir }}/{{ item.src }}"
+    dest: "{{ ansible_facts.env.HOME }}/.config/{{ item.dest }}"
+    state: link
+    force: yes
+  loop:
+    # ファイル単体をリンクするもの
+    - { src: 'ghostty/config', dest: 'ghostty/config' }
+    - { src: 'ghostty/keybindings', dest: 'ghostty/keybindings' }
+    - { src: 'fastfetch/config.jsonc', dest: 'fastfetch/config.jsonc' }
+    - { src: 'aerospace/aerospace.toml', dest: 'aerospace/aerospace.toml' }
+
+    # ディレクトリごとリンクするもの
+    - { src: 'nvim', dest: 'nvim' }
+    - { src: 'sketchybar', dest: 'sketchybar' }
+
+# navi のリンク
+- name: Link navi cheats
+  file:
+    src: "{{ dotfiles_dir }}/cheats"
+    dest: "{{ ansible_facts.env.HOME }}/.local/share/navi/cheats/custom_cheats"
+    state: link
+    force: yes
+
+# 権限設定 (chmod + x)
+- name: Make SketchyBar scripts executable
+  file:
+    path: "{{ item }}"
+    mode: '0755'
+  with_fileglob:
+    - "{{ dotfiles_dir }}/sketchybar/*.sh"
+    - "{{ dotfiles_dir }}/sketchybar/items/*.sh"
+    - "{{ dotfiles_dir }}/sketchybar/plugins/*.sh"
+

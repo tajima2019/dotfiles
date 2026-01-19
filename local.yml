@@ -1,0 +1,16 @@
+- hosts: localhost
+  connection: local
+  gather_facts: yes
+
+  tasks:
+    - name: Run Arch Linux tasks
+      include_tasks: tasks/arch.yml
+      when: ansible_facts['os_family'] == "ArchLinux"
+
+    - name: Run macOS tasks
+      include_tasks: tasks/macos.yml
+      when: ansible_facts['os_family'] == "Darwin"
+
+    - name: Run Common tasks
+      include_tasks: tasks/common.yml
+
