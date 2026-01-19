@@ -6,7 +6,7 @@ return {
     opts = {
       size = 20,
       open_mapping = [[<C-@>]], -- Ctrl + @でターミナルを開く
-      direction = "horizontal",
+      direction = "float",
       float_opts = {
         border = "curved",
       },
