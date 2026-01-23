@@ -5,7 +5,8 @@ return {
     branch = "v3.x",
     dependencies = {
       "nvim-lua/plenary.nvim",
-      "nvim-tree/nvim-web-devicons",
+      -- "nvim-tree/nvim-web-devicons",
+      "echasnovski/mini.icons",
       "MunifTanjim/nui.nvim",
     },
     keys = {
@@ -15,7 +16,7 @@ return {
     opts = {
       -- ウィンドウの設定
       window = {
-        width = 30,
+        width = 35,
         position = "right",
         mapping_options = {
           noremap = true,
@@ -29,7 +30,7 @@ return {
         statusline = false,
         sources = {
           { source = "filesystem", display_name = " 󰉓 Files " },
-          { source = "buffers", display_name = " 󰈙 Buffers " },
+          { source = "buffers", display_name = " 󰈙 Bufs " },
           { source = "git_status", display_name = " 󰊢 Git " },
         },
       },

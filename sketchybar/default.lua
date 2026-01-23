@@ -3,7 +3,7 @@ local colors = require("colors")
 
 -- Equivalent to the --default domain
 sbar.default({
-  update_freq = 1,
+  update_freq = 60,
   icon = {
     font = {
       family = settings.font.text,
@@ -14,7 +14,7 @@ sbar.default({
     highlight = colors.background,
     padding_left = 4,
     padding_right = 1,
-    corner_radius = 6,
+    -- corner_radius = 6,
     background = { image = { corner_radius = 12 } },
   },
   label = {
