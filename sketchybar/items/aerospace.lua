@@ -1,6 +1,7 @@
 local sbar = require("sketchybar")
 local colors = require("colors")
 local settings = require("settings")
+local app_icons = require("helpers.icon_map")
 
 local colors_spaces = {
   [1] = colors.cmap_1 or colors.red,
@@ -12,9 +13,14 @@ local colors_spaces = {
   [7] = colors.cmap_7 or colors.magenta,
   [8] = colors.cmap_8 or colors.white,
   [9] = colors.cmap_9 or colors.gray,
+  [10] = colors.cmap_10 or colors.gray,
 }
 
-local loop_interval = 0
+local workspace_icons = {
+  N = app_icons["notion"] or app_icons["Notion"],
+  S = app_icons["slack"] or app_icons["Slack"],
+  Z = app_icons["zoom"] or app_icons["Zoom"],
+}
 
 -- イベントの登録
 sbar.add("event", "aerospace_workspace_change")
@@ -25,16 +31,21 @@ sbar.exec(aerospace_cmd .. " list-workspaces --all", function(workspaces)
   local space_names = {}
 
   for sid in workspaces:gmatch("%S+") do
-    local sid_n = tonumber(sid) or 1
-    local space_color = colors_spaces[sid_n] or colors.white
+    local sid_n = tonumber(sid)
+    local space_color = sid_n and (colors_spaces[sid_n] or colors.tn_orange)
+        or colors.tn_orange
+    local workspace_icon = workspace_icons[sid]
+    local icon_string = workspace_icon or sid
+    local icon_font = workspace_icon and "sketchybar-app-font-bg:Regular:16.0"
+        or {
+          family = settings.font.numbers,
+          size = 14,
+        }
 
     local space = sbar.add("item", "space." .. sid, {
       icon = {
-        font = {
-          family = settings.font.numbers,
-          size = 14,
-        },
-        string = sid,
+        font = icon_font,
+        string = icon_string,
         padding_left = 10,
         padding_right = 10,
         color = space_color,
