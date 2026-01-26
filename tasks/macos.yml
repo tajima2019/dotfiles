@@ -57,11 +57,18 @@
 # SketchyBar 関連の処理
 
 # SbarLua のインストール
+- name: Remove existing SbarLua directory
+  file:
+    path: /tmp/SbarLua
+    state: absent
+  become: true
+
 - name: Clone SbarLua
   git:
     repo: https://github.com/FelixKratz/SbarLua.git
     dest: /tmp/SbarLua
-    force: yes
+    depth: 1
+    force: true
 
 - name: Compile and Install SbarLua
   shell: |
@@ -69,7 +76,7 @@
     make install
   args:
     creates: /opt/homebrew/lib/sketchybar.so
-  become: yes
+  become: true
 
 # icon_update.shを実行
 - name: Run sketchybar icon updater
@@ -80,4 +87,3 @@
 # SketchyBar サービスの起動
 - name: Restart SketchyBar service
   shell: brew services stop sketchybar || true && brew services start sketchybar
-
