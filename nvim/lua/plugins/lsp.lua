@@ -10,7 +10,7 @@ return {
       -- Mason(インストーラー) の設定
       require("mason").setup()
       require("mason-lspconfig").setup({
-        ensure_installed = { "gopls", "lua_ls", "ts_ls", "pyright", "yamlls" }, -- 自動で入れたいものを書く
+        ensure_installed = { "gopls", "lua_ls", "ts_ls", "pyright", "yamlls", "cssls" }, -- 自動で入れたいものを書く
 
         -- handlers: インストールされたLSPごとの設定をここに書く
         handlers = {
@@ -45,10 +45,21 @@ return {
             require("lspconfig").ts_ls.setup({})
           end,
 
+          -- CSS用の設定を追加
+          ["cssls"] = function()
+            require("lspconfig").cssls.setup({
+              settings = {
+                css = { validate = true },
+                scss = { validate = true },
+                less = { validate = true },
+              },
+            })
+          end,
+
           -- Python用の設定を追加
           ["pyright"] = function()
             require("lspconfig").pyright.setup({
-              settigns = {
+              settings = {
                 python = {
                   analysis = {
                     typeCheckingMode = "off",

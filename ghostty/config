@@ -47,11 +47,6 @@ background-opacity = 0.8
 # 前回のウィンドウサイズを記憶しない
 window-save-state = never
 
-# フルスクリーンで起動
-fullscreen = true
-# フルスクリーン時も背景透過 for mac
-macos-non-native-fullscreen = true
-
 # キーバインディングの設定
 config-file = keybindings
 
