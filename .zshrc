@@ -1,3 +1,5 @@
+[[ $- != *i* ]] && return
+
 # -- 起動時の表示 --
 figlet -c "Hello Kento" | lolcat 
 fastfetch

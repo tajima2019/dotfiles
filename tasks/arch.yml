@@ -1,0 +1,87 @@
+- name: Update Pacman Cache
+  community.general.pacman:
+    update_cache: yes
+  become: true
+
+- name: Install Official Packages via Pacman
+  community.general.pacman:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - git
+    - fzf
+    - fastfetch
+    - figlet
+    - lolcat
+    - yazi
+    - ffmpegthumbnailer
+    - jq
+    - ripgrep
+    - zoxide
+    - lua
+    - github-cli
+    - lazygit
+    - neovim
+    - unzip
+    - wget
+    - cmatrix
+    - navi
+    - wl-clipboard
+    - sheldon
+    - unzip
+    - tar
+    - gzip
+    - imagemagick # fastfetchの画像レンダリングに必要
+    - imv
+    - ghostty
+    - zsh
+    - sheldon
+    # 音量関係
+    - pipewire
+    - pipewire-pulse
+    - wireplumber
+    - pavucontrol
+    # ---- Arch/Hyperland ----
+    - hyprland
+    - waybar
+    - wofi
+    - hyprpaper
+    # ---- Input Method ---
+    - fcitx5-im
+    - fcitx5-mozc
+    - fcitx5-configtool
+    # -- lanuage --
+    - nodejs
+    - npm
+    - go
+    - python
+    - python-pip
+    - python-pynvim
+
+  become: true
+
+# --- AUR (paru) 用の準備 ---
+# Paruが裏でsudoを使う時にパスワードを聞かれないように、一時的に許可設定を作成
+- name: Allow passwordless pacman for wheel group
+  lineinfile:
+    path: /etc/sudoers.d/paru-install
+    line: "%wheel ALL=(ALL) NOPASSWD: /usr/bin/pacman"
+    create: yes
+    mode: "0440"
+    validate: "visudo -cf %s"
+  become: true
+
+# --- AUR (paru) からインストール ---
+- name: Install AUR Packages via Paru
+  command: "paru -S --noconfirm --needed --refresh {{ item }}"
+  loop:
+    - navi
+    - tty-clock
+    - zen-browser-bin
+
+# セキュリティのため、許可設定ファイルを削除
+- name: Remove passwordless pacman config
+  file:
+    path: /etc/sudoers.d/paru-install
+    state: absent
+  become: true

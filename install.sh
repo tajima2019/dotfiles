@@ -25,13 +25,35 @@ if ! command -v ansible-playbook > /dev/null 2>&1; then
   elif [ -f "/etc/arch-release" ]; then
     echo "Detected Arch Linux."
 
+    echo "System update & Installing base-devel/git..."
+    sudo pacman -Syu --noconfirm base-devel git
+
+    # Paruのインストール
+    if ! command -v paru > /dev/null 2>&1; then
+      echo "Paru not found. Installing from AUR..."
+      git clone https://aur.archlinux.org/paru.git /tmp/paru
+      cd /tmp/paru
+      makepkg -si --noconfirm
+      cd - > /dev/null
+      rm -rf /tmp/paru
+    else
+      echo "Paru is already installed."
+    fi
+
+    # Ansibleのインストール
+    if ! command -v ansible-playbook > /dev/null 2>&1; then
+      echo "Installing Ansible via Pacman..."
+      sudo pacman -S --noconfirm ansible
+    else
+      echo "Ansible is already installed."
+    fi
+  # それ以外
   else
     echo "Unsupported OS. Please install Ansible manually."
     exit 1
   fi
-
 else
-  echo "Ansible is already installed."
+  echo "Ansible is already installed"
 fi
 
 # 必要なコレクションのインストール

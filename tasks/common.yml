@@ -3,16 +3,38 @@
     dotfiles_dir: "{{ ansible_facts.env.HOME }}/dotfiles"
 
 # ディレクトリ作成
-- name: Create .config directories
+- name: Create common .config directories
   file:
     path: "{{ ansible_facts.env.HOME }}/.config/{{ item }}"
     state: directory
-    mode: '0755'
+    mode: "0755"
   loop:
     - ghostty
     - fastfetch
-    - aerospace
     - sheldon
+    - nvim
+
+# mac 専用ディレクトリ作成
+- name: Create MacOS specific directories
+  file:
+    path: "{{ ansible_facts.env.HOME }}/.config/{{ item }}"
+    state: directory
+    mode: "0755"
+  loop:
+    - aerospace
+  when: ansible_facts['os_family'] == "Darwin"
+
+# Arch Linux 専用ディレクトリ作成
+- name: Create Arch Linux specific directories
+  file:
+    path: "{{ ansible_facts.env.HOME }}/.config/{{ item }}"
+    state: directory
+    mode: "0755"
+  loop:
+    - hypr
+    - waybar
+    - wofi
+  when: ansible_facts['os_family'] == "Archlinux"
 
 # navi用の特殊なディレクトリ作成
 - name: Create navi cheat directories
@@ -46,15 +68,51 @@
     force: yes
   loop:
     # ファイル単体をリンクするもの
-    - { src: 'ghostty/config', dest: 'ghostty/config' }
-    - { src: 'ghostty/keybindings', dest: 'ghostty/keybindings' }
-    - { src: 'fastfetch/config.jsonc', dest: 'fastfetch/config.jsonc' }
-    - { src: 'aerospace/aerospace.toml', dest: 'aerospace/aerospace.toml' }
-    - { src: 'sheldon/plugins.toml', dest: 'sheldon/plugins.toml' }
-
+    - { src: "ghostty/config", dest: "ghostty/config" }
+    - { src: "ghostty/keybindings", dest: "ghostty/keybindings" }
+    - { src: "fastfetch/config.jsonc", dest: "fastfetch/config.jsonc" }
+    - { src: "sheldon/plugins.toml", dest: "sheldon/plugins.toml" }
+    - { src: "fastfetch/config.jsonc", dest: "fastfetch/config.jsonc" }
     # ディレクトリごとリンクするもの
-    - { src: 'nvim', dest: 'nvim' }
-    - { src: 'sketchybar', dest: 'sketchybar' }
+    - { src: "nvim", dest: "nvim" }
+
+# OSごとの設定ファイルを local という名前でリンク
+- name: Link Ghostty OS specific config as 'local'
+  file:
+    src: "{{ dotfiles_dir }}/{{ item.src }}"
+    dest: "{{ ansible_facts.env.HOME }}/.config/{{ item.dest }}"
+    state: link
+    force: yes
+  loop:
+    - {
+        src: "ghostty/local_{{ 'mac' if ansible_facts['os_family'] == 'Darwin' else 'arch' }}",
+        dest: "ghostty/local",
+      }
+
+# mac リンク設定
+- name: Link MacOS specific configs
+  file:
+    src: "{{ dotfiles_dir }}/{{ item.src }}"
+    dest: "{{ ansible_facts.env.HOME }}/.config/{{ item.dest }}"
+    state: link
+    force: yes
+  loop:
+    - { src: "aerospace/aerospace.toml", dest: "aerospace/aerospace.toml" }
+    - { src: "sketchybar", dest: "sketchybar" }
+  when: ansible_facts['os_family'] == "Darwin"
+
+# Arch Linux リンク設定
+- name: Link Arch Linux specific configs
+  file:
+    src: "{{ dotfiles_dir }}/{{ item.src }}"
+    dest: "{{ ansible_facts.env.HOME }}/.config/{{ item.dest }}"
+    state: link
+    force: yes
+  loop:
+    - { src: "hypr", dest: "hypr" }
+    - { src: "waybar", dest: "waybar" }
+    - { src: "wofi", dest: "wofi" }
+  when: ansible_facts['os_family'] == "Archlinux"
 
 # navi のリンク
 - name: Link navi cheats
@@ -64,13 +122,52 @@
     state: link
     force: yes
 
-# 権限設定 (chmod + x)
+- name: Deploy SDDM config (sddm.conf)
+  ansible.builtin.copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: root
+    group: root
+    mode: "0644"
+  loop:
+    - { src: "{{ dotfiles_dir }}/sddm/sddm.conf", dest: "/etc/sddm.conf" }
+  become: true
+  when: ansible_facts['os_family'] == "Archlinux"
+
+- name: Deploy SDDM Theme Config
+  ansible.builtin.copy:
+    src: "{{ dotfiles_dir }}/sddm/theme.conf"
+    dest: "/usr/share/sddm/themes/sugar-candy/theme.conf"
+    owner: root
+    group: root
+    mode: "0644"
+    force: yes # パッケージ更新で戻る可能性があるので強制上書き
+  become: true
+  when: ansible_facts['os_family'] == "Archlinux"
+
+- name: Enable SDDM Service
+  ansible.builtin.systemd:
+    name: sddm
+    enabled: yes
+    state: started
+  become: true
+  when: ansible_facts['os_family'] == "Archlinux"
+
+# Mac 権限設定 (chmod + x)
 - name: Make SketchyBar scripts executable
   file:
     path: "{{ item }}"
-    mode: '0755'
+    mode: "0755"
   with_fileglob:
     - "{{ dotfiles_dir }}/sketchybar/*.sh"
     - "{{ dotfiles_dir }}/sketchybar/items/*.sh"
     - "{{ dotfiles_dir }}/sketchybar/plugins/*.sh"
+  when: ansible_facts['os_family'] == "Darwin"
 
+# シェルの変更
+- name: Change default shell to zsh
+  user:
+    name: "{{ ansible_facts['user_id'] }}"
+    shell: /bin/zsh
+  become: true
+  when: ansible_facts['os_family'] == "Archlinux"
