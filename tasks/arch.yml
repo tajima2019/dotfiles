@@ -29,6 +29,7 @@
     - wl-clipboard
     - sheldon
     - unzip
+    - less
     - tar
     - gzip
     - imagemagick # fastfetchの画像レンダリングに必要
@@ -57,6 +58,7 @@
     - python
     - python-pip
     - python-pynvim
+    - typst
 
   become: true
 
@@ -78,10 +80,20 @@
     - navi
     - tty-clock
     - zen-browser-bin
+    - nb
+    - bluez-utils
+    - blueman
 
 # セキュリティのため、許可設定ファイルを削除
 - name: Remove passwordless pacman config
   file:
     path: /etc/sudoers.d/paru-install
     state: absent
+  become: true
+
+- name: Install tree-sitter-cli globally via npm
+  community.general.npm:
+    name: tree-sitter-cli
+    global: yes
+    state: latest
   become: true

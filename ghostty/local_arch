@@ -13,6 +13,12 @@ keybind = super+v=paste_from_clipboard
 # Cmd + Aで全選択
 keybind = super+a=select_all
 
+# フォントサイズ変更
+keybind = ctrl+shift+equal=decrease_font_size:1
+keybind = ctrl+shift+minus=increase_font_size:1
+# フォントサイズリセット
+keybind = ctrl+0=reset_font_size
+
 # フォントスタイル
 font-style-bold = false
 font-style-italic = false

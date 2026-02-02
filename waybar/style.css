@@ -16,7 +16,8 @@ window#waybar {
 #battery,
 #network,
 #pulseaudio,
-#tary {
+#bluetooth,
+#tray {
   background-color: #313244;
   padding: 0 12px;
   margin: 4px 2px;
@@ -34,7 +35,7 @@ window#waybar {
   color: #1e1e2e;
 }
 
-workspaces button:hover {
+#workspaces button:hover {
   background-color: #45475a;
 }
 
@@ -70,6 +71,24 @@ workspaces button:hover {
 #pulseaudio {
   background-color: #fab387;
   color: #1e1e2e;
+}
+
+#bluetooth {
+  background-color: #cba6f7;
+  color: #121e2e;
+}
+
+#tray {
+  background-color: #313244;
+}
+
+#custom-launcher {
+  background-color: #89b4fa;
+  color: #1e1e2e;
+  padding: 0 8px 0 12px;
+  margin: 4px 2px;
+  border-radius: 10px;
+  font-size: 18px;
 }
 
 @keyframes blink {

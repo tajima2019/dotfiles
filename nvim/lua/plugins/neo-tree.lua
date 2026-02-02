@@ -38,7 +38,9 @@ return {
       -- ファイルシステム設定
       filesystem = {
         bind_to_cwd = false,           -- カレントディレクトリにバインドしない
-        follow_current_file = true,    -- カレントファイルを追従
+        follow_current_file = {
+          enabled = true,              -- カレントファイルを追従
+        },
         use_libuv_file_watcher = true, -- ファイル変更を自動検知
         filtered_items = {
           visible = true,              -- 隠しファイルも設定
