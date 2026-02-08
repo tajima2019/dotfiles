@@ -1,8 +1,11 @@
 # Tap(リポジトリ)の追加
 - name: Add Homebrew Taps
   community.general.homebrew_tap:
-    name: FelixKratz/formulae
+    name: "{{ item }}"
     state: present
+  loop:
+    - FelixKratz/formulae
+    - xwmx/taps
 
 - name: UpdateHomebrew
   community.general.homebrew:
@@ -38,7 +41,7 @@
     - lazygit
     - gh
     - sheldon
-    - xwmx/taps/nb
+    - nb
     - node
     - nvim
 
