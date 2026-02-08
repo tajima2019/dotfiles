@@ -52,6 +52,7 @@
     - raycast
     - nikitabobko/tap/aerospace
     - alt-tab
+    # 手動で入れる必要ありかも
     - sf-symbols
     - font-hack-nerd-font
     - font-sf-pro
@@ -66,32 +67,32 @@
 
 # SketchyBar 関連の処理
 # SbarLua のインストール
-- name: Remove existing SbarLua directory
-  file:
-    path: /tmp/SbarLua
-    state: absent
-  become: true
-
-- name: Clone SbarLua
-  git:
-    repo: https://github.com/FelixKratz/SbarLua.git
-    dest: /tmp/SbarLua
-    depth: 1
-    force: true
-
-- name: Compile and Install SbarLua
-  shell: |
-    cd /tmp/SbarLua
-    make install
-  args:
-    creates: /opt/homebrew/lib/sketchybar.so
-  become: true
-
+# - name: Remove existing SbarLua directory
+#   file:
+#     path: /tmp/SbarLua
+#     state: absent
+#   become: true
+#
+# - name: Clone SbarLua
+#   git:
+#     repo: https://github.com/FelixKratz/SbarLua.git
+#     dest: /tmp/SbarLua
+#     depth: 1
+#     force: true
+#
+# - name: Compile and Install SbarLua
+#   shell: |
+#     cd /tmp/SbarLua
+#     make install
+#   args:
+#     creates: /opt/homebrew/lib/sketchybar.so
+#   become: true
+#
 # icon_update.shを実行
-- name: Run sketchybar icon updater
-  shell: |
-    chmod +x {{ ansible_facts.env.HOME }}/dotfiles/sketchybar/icon_updater.sh
-    {{ ansible_facts.env.HOME }}/dotfiles/sketchybar/icon_updater.sh
+# - name: Run sketchybar icon updater
+#   shell: |
+#     chmod +x {{ ansible_facts.env.HOME }}/dotfiles/sketchybar/icon_updater.sh
+#     {{ ansible_facts.env.HOME }}/dotfiles/sketchybar/icon_updater.sh
 
 # SketchyBar サービスの起動
 - name: Restart SketchyBar service
