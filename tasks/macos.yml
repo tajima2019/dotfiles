@@ -38,6 +38,7 @@
     - switchaudio-osx
     - nowplaying-cli
     - pnpm
+    - lazydocker
     - lazygit
     - gh
     - sheldon
