@@ -19,9 +19,13 @@ opt.smartindent = true -- 改行した時、前の行に合わせて勝手に字
 opt.ignorecase = true  -- 検索で大文字小文字の区別なくす
 opt.smartcase = true
 
-opt.termguicolors = true            -- 24bit color
-opt.clipboard:append("unnamedplus") -- クリップボード共有
-opt.mouse = "a"                     -- マウス有効化
+opt.termguicolors = true                    -- 24bit color
+opt.clipboard:append("unnamedplus")         -- クリップボード共有
+opt.mouse = "a"                             -- マウス有効化
 
-opt.encoding = "utf-8"              -- 内部文字コード
-opt.fileencoding = "utf-8"          -- ファイルの文字コード
+opt.encoding = "utf-8"                      -- 内部文字コード
+opt.fileencoding = "utf-8"                  -- ファイルの文字コード
+
+opt.foldmethod = "expr"                     -- 折りたたみ
+opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+opt.foldlevel = 99                          -- 開始時は全て展開
