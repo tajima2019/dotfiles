@@ -25,12 +25,10 @@
     - unzip
     - wget
     - cmatrix
-    - navi
     - wl-clipboard
     - grim
     - slurp
     - sheldon
-    - unzip
     - less
     - tar
     - gzip
@@ -38,7 +36,10 @@
     - imv
     - ghostty
     - zsh
-    - sheldon
+    - eza
+    - bat
+    - thefuck
+    - git-delta
     # 音量関係
     - pipewire
     - pipewire-pulse
@@ -53,7 +54,7 @@
     - fcitx5-im
     - fcitx5-mozc
     - fcitx5-configtool
-    # -- lanuage --
+    # -- language --
     - nodejs
     - npm
     - go
