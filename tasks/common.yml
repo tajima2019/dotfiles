@@ -55,6 +55,7 @@
     - .zshrc
     - .zsh_prompt
     - .zsh_plugins
+    - .zsh_functions
     - .bashrc
     - .gitconfig
     - .hushlogin

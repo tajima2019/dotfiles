@@ -48,3 +48,6 @@ if [ -f ~/.zsh_plugins ]; then
   source ~/.zsh_plugins
 fi
 
+# the fuck 設定
+eval "$(thefuck --alias)"
+

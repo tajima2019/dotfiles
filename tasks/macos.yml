@@ -1,8 +1,11 @@
 # Tap(リポジトリ)の追加
 - name: Add Homebrew Taps
   community.general.homebrew_tap:
-    name: FelixKratz/formulae
+    name: "{{ item }}"
     state: present
+  loop:
+    - FelixKratz/formulae
+    - xwmx/taps
 
 - name: UpdateHomebrew
   community.general.homebrew:
@@ -35,9 +38,17 @@
     - switchaudio-osx
     - nowplaying-cli
     - pnpm
+    - lazydocker
     - lazygit
     - gh
     - sheldon
+    - nb
+    - node
+    - nvim
+    - bat
+    - delta
+    - thefuck
+    - eza
 
 # Caskのインストール
 - name: Install Homebrew Casks
@@ -49,40 +60,18 @@
     - raycast
     - nikitabobko/tap/aerospace
     - alt-tab
+    # 手動で入れる必要ありかも
     - sf-symbols
     - font-hack-nerd-font
     - font-sf-pro
     - font-sf-mono
 
-# SketchyBar 関連の処理
-
-# SbarLua のインストール
-- name: Remove existing SbarLua directory
-  file:
-    path: /tmp/SbarLua
-    state: absent
+- name: Install tree-sitter-cli globally via npm
+  community.general.npm:
+    name: tree-sitter-cli
+    global: yes
+    state: latest
   become: true
-
-- name: Clone SbarLua
-  git:
-    repo: https://github.com/FelixKratz/SbarLua.git
-    dest: /tmp/SbarLua
-    depth: 1
-    force: true
-
-- name: Compile and Install SbarLua
-  shell: |
-    cd /tmp/SbarLua
-    make install
-  args:
-    creates: /opt/homebrew/lib/sketchybar.so
-  become: true
-
-# icon_update.shを実行
-- name: Run sketchybar icon updater
-  shell: |
-    chmod +x {{ ansible_facts.env.HOME }}/dotfiles/sketchybar/icon_updater.sh
-    {{ ansible_facts.env.HOME }}/dotfiles/sketchybar/icon_updater.sh
 
 # SketchyBar サービスの起動
 - name: Restart SketchyBar service
