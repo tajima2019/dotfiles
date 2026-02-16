@@ -11,87 +11,83 @@ return {
       require("mason").setup()
       require("mason-lspconfig").setup({
         ensure_installed = { "gopls", "lua_ls", "ts_ls", "pyright", "yamlls", "cssls" }, -- 自動で入れたいものを書く
+        automatic_enable = true,
+      })
 
-        -- handlers: インストールされたLSPごとの設定をここに書く
-        handlers = {
-          -- デフォルト設定
-          function(server_name)
-            require("lspconfig")[server_name].setup({})
-          end,
-
-          -- Go言語の個別設定
-          ["gopls"] = function()
-            require("lspconfig").gopls.setup({
-              settings = {
-                gopls = {
-                  analyses = { unusedparams = true },
-                  staticcheck = true,
-                },
-              },
-            })
-          end,
-
-          -- Luaの個別設定
-          ["lua_ls"] = function()
-            require("lspconfig").lua_ls.setup({
-              settings = {
-                Lua = { diagnostics = { globals = { "vim" } } },
-              },
-            })
-          end,
-
-          -- JS/TS用の設定を追加
-          ["ts_ls"] = function()
-            require("lspconfig").ts_ls.setup({})
-          end,
-
-          -- CSS用の設定を追加
-          ["cssls"] = function()
-            require("lspconfig").cssls.setup({
-              settings = {
-                css = { validate = true },
-                scss = { validate = true },
-                less = { validate = true },
-              },
-            })
-          end,
-
-          -- Python用の設定を追加
-          ["pyright"] = function()
-            require("lspconfig").pyright.setup({
-              settings = {
-                python = {
-                  analysis = {
-                    typeCheckingMode = "off",
-                  }
-                }
-              }
-            })
-          end,
-
-          -- yaml用の設定を追加
-          ["yamlls"] = function()
-            require("lspconfig").yamlls.setup({
-              settings = {
-                yaml = {
-                  -- スキーマの自動ダウンロードを有効化
-                  schemaStore = {
-                    enable = true,
-                    url = "https://www.schemastore.org/api/json/catalog.json",
-                  },
-                  -- フォーマットの設定
-                  format = {
-                    enable = true,
-                  },
-                  validate = true,
-                  completion = true,
-                  hover = true,
-                },
-              },
-            })
-          end,
+      -- Go言語の個別設定
+      vim.lsp.config("gopls", {
+        settings = {
+          gopls = {
+            analyses = { unusedparams = true },
+            staticcheck = true,
+          },
         },
       })
+
+      -- Luaの個別設定
+      vim.lsp.config("lua_ls", {
+        settings = {
+          Lua = { diagnostics = { globals = { "vim" } } },
+        },
+      })
+
+      -- JS/TS用の設定
+      vim.lsp.config("ts_ls", {})
+
+      -- CSS用の設定
+      vim.lsp.config("cssls", {
+        settings = {
+          css = { validate = true },
+          scss = { validate = true },
+          less = { validate = true },
+        },
+      })
+
+      -- Python用の設定
+      vim.lsp.config("pyright", {
+        settings = {
+          python = {
+            analysis = {
+              typeCheckingMode = "off",
+            },
+          },
+        },
+      })
+
+      -- yaml用の設定
+      vim.lsp.config("yamlls", {
+        settings = {
+          yaml = {
+            -- スキーマの自動ダウンロードを有効化
+            schemaStore = {
+              enable = true,
+              url = "https://www.schemastore.org/api/json/catalog.json",
+            },
+            -- フォーマットの設定
+            format = {
+              enable = true,
+            },
+            validate = true,
+            completion = true,
+            hover = true,
+          },
+        },
+      })
+
+      -- matlab用の設定
+      vim.lsp.config("matlab_ls", {
+        cmd = { "matlab-language-server", "--stdio" },
+        filetypes = { "matlab" },
+        settings = {
+          MATLAB = {
+            installPath = "/Applications/MATLAB_R2024b.app", -- MATLABのインストールパスを指定
+            indexWorkspace = true,
+            matlabConnectionTiming = "onStart",
+            telemetry = false,
+          },
+        },
+      })
+      vim.lsp.enable("matlab_ls")
 
       -- キーバインド設定
       vim.api.nvim_create_autocmd("LspAttach", {
