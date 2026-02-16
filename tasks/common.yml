@@ -172,3 +172,20 @@
     shell: /bin/zsh
   become: true
   when: ansible_facts['os_family'] == "Archlinux"
+
+# codexの設定
+- name: Ensure Codex config directory exists
+  file:
+    path: "{{ ansible_facts.env.HOME }}/.codex"
+    state: directory
+    mode: "0755"
+
+- name: Link Codex config files
+  file:
+    src: "{{ dotfiles_dir }}/codex/{{ item.src }}"
+    dest: "{{ ansible_facts.env.HOME }}/.codex/{{ item.dest }}"
+    state: link
+    force: yes
+  loop:
+    - { src: "config.toml", dest: "config.toml" }
+    - { src: "AGENTS.md", dest: "AGENTS.md" }

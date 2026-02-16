@@ -1,0 +1,18 @@
+model = "gpt-5-codex"
+model_reasoning_effort = "medium"
+model_verbosity = "medium"
+
+sandbox_mode = "read-only"
+
+network_access = true
+
+[tools]
+web_search = true
+
+[mcp_servers.context7]
+command = "npx"
+args = ["-y", "@upstash/context7-mcp@latest"]
+
+[mcp_servers.playwright]
+command = "npm"
+args = ["exec", "--yes", "@playwright/mcp@latest"]
