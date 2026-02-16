@@ -93,9 +93,12 @@
     state: absent
   become: true
 
-- name: Install tree-sitter-cli globally via npm
+- name: Install global npm packages
   community.general.npm:
-    name: tree-sitter-cli
+    name: "{{ item }}"
     global: yes
     state: latest
+  loop:
+    - tree-sitter-cli
+    - "@openai/codex"
   become: true

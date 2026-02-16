@@ -1,0 +1,65 @@
+- name: Define dotfiles directory
+  set_fact:
+    dotfiles_dir: "{{ ansible_facts.env.HOME }}/dotfiles"
+
+# ディレクトリの作成
+- name: Create Arch Linux specific directories
+  file:
+    path: "{{ ansible_facts.env.HOME }}/.config/{{ item }}"
+    state: directory
+    mode: "0755"
+  loop:
+    - hypr
+    - waybar
+    - wofi
+
+# リンク設定
+- name: Link Arch Linux specific configs
+  file:
+    src: "{{ dotfiles_dir }}/{{ item.src }}"
+    dest: "{{ ansible_facts.env.HOME }}/.config/{{ item.dest }}"
+    state: link
+    force: yes
+  loop:
+    - { src: "hypr", dest: "hypr" }
+    - { src: "waybar", dest: "waybar" }
+    - { src: "wofi", dest: "wofi" }
+
+# SDDMの設定 (Arch Linux)
+- name: Deploy SDDM config (sddm.conf)
+  ansible.builtin.copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: root
+    group: root
+    mode: "0644"
+  loop:
+    - { src: "{{ dotfiles_dir }}/sddm/sddm.conf", dest: "/etc/sddm.conf" }
+  become: true
+
+- name: Deploy SDDM Theme Config
+  ansible.builtin.copy:
+    src: "{{ dotfiles_dir }}/sddm/theme.conf"
+    dest: "/usr/share/sddm/themes/sugar-candy/theme.conf"
+    owner: root
+    group: root
+    mode: "0644"
+    force: yes # パッケージ更新で戻る可能性があるので強制上書き
+  become: true
+
+# Arch Linux でデフォルトシェルを zsh に変更
+- name: Change default shell to zsh
+  user:
+    name: "{{ ansible_facts['user_id'] }}"
+    shell: /bin/zsh
+  become: true
+
+# OSごとの設定ファイルを local という名前でリンク
+- name: Link Ghostty OS specific config as 'local'
+  file:
+    src: "{{ dotfiles_dir }}/{{ item.src }}"
+    dest: "{{ ansible_facts.env.HOME }}/.config/{{ item.dest }}"
+    state: link
+    force: yes
+  loop:
+    - { src: "ghostty/local_arch", dest: "ghostty/local" }

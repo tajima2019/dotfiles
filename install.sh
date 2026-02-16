@@ -62,7 +62,7 @@ ansible-galaxy collection install community.general
 
 # Playbook の実行
 echo "Running Ansible Playbook..."
-ansible-playbook local.yml -K
+ansible-playbook ansible/local.yml -K
 
 echo "Done!"
 

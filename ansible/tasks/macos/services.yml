@@ -1,0 +1,3 @@
+# SketchyBar サービスの起動
+- name: Restart SketchyBar service
+  shell: brew services stop sketchybar || true && brew services start sketchybar

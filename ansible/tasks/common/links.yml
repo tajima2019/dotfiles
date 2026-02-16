@@ -1,0 +1,84 @@
+- name: Define dotfiles directory
+  set_fact:
+    dotfiles_dir: "{{ ansible_facts.env.HOME }}/dotfiles"
+
+# ディレクトリ作成
+- name: Create common .config directories
+  file:
+    path: "{{ ansible_facts.env.HOME }}/.config/{{ item }}"
+    state: directory
+    mode: "0755"
+  loop:
+    - ghostty
+    - fastfetch
+    - sheldon
+    - nvim
+
+# navi用の特殊なディレクトリ作成
+- name: Create navi cheat directories
+  file:
+    path: "{{ ansible_facts.env.HOME }}/.local/share/navi/cheats"
+    state: directory
+    recurse: yes
+
+# .zsh*のリンク
+- name: Link zsh configuration files
+  file:
+    src: "{{ dotfiles_dir }}/shell/{{ item }}"
+    dest: "{{ ansible_facts.env.HOME }}/{{ item }}"
+    state: link
+    force: yes
+  loop:
+    - .zshrc
+    - .zsh_prompt
+    - .zsh_plugins
+    - .zsh_functions
+
+# .hushlogin のリンク
+- name: Link .hushlogin
+  file:
+    src: "{{ dotfiles_dir }}/.hushlogin"
+    dest: "{{ ansible_facts.env.HOME }}/.hushlogin"
+    state: link
+    force: yes
+
+# .config 内へのリンク
+- name: Link config files
+  file:
+    src: "{{ dotfiles_dir }}/{{ item.src }}"
+    dest: "{{ ansible_facts.env.HOME }}/.config/{{ item.dest }}"
+    state: link
+    force: yes
+  loop:
+    # ファイル単体をリンクするもの
+    - { src: "ghostty/config", dest: "ghostty/config" }
+    - { src: "ghostty/keybindings", dest: "ghostty/keybindings" }
+    - { src: "sheldon/plugins.toml", dest: "sheldon/plugins.toml" }
+    - { src: "fastfetch/config.jsonc", dest: "fastfetch/config.jsonc" }
+    # ディレクトリごとリンクするもの
+    - { src: "nvim", dest: "nvim" }
+
+# navi のリンク
+- name: Link navi cheats
+  file:
+    src: "{{ dotfiles_dir }}/cheats"
+    dest: "{{ ansible_facts.env.HOME }}/.local/share/navi/cheats/custom_cheats"
+    state: link
+    force: yes
+
+# codex のリンク
+- name: Ensure Codex config directory exists
+  file:
+    path: "{{ ansible_facts.env.HOME }}/.codex"
+    state: directory
+    mode: "0755"
+
+- name: Link Codex config files
+  file:
+    src: "{{ dotfiles_dir }}/codex/{{ item.src }}"
+    dest: "{{ ansible_facts.env.HOME }}/.codex/{{ item.dest }}"
+    state: link
+    force: yes
+  loop:
+    - { src: "config.toml", dest: "config.toml" }
+    - { src: "AGENTS.md", dest: "AGENTS.md" }

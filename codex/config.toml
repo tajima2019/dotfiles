@@ -1,4 +1,4 @@
-model = "gpt-5-codex"
+model = "gpt-5.3-codex"
 model_reasoning_effort = "medium"
 model_verbosity = "medium"
 
@@ -6,8 +6,8 @@ sandbox_mode = "read-only"
 
 network_access = true
 
-[tools]
-web_search = true
+[profiles.default]
+web_search = "live"
 
 [mcp_servers.context7]
 command = "npx"
@@ -16,3 +16,6 @@ args = ["-y", "@upstash/context7-mcp@latest"]
 [mcp_servers.playwright]
 command = "npm"
 args = ["exec", "--yes", "@playwright/mcp@latest"]
+
+[notice.model_migrations]
+gpt-5-codex = "gpt-5.3-codex"
