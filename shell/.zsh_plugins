@@ -38,6 +38,9 @@ autoload -Uz compinit && compinit
 
 # navi をCtrl + gで呼び出し
 eval "$(navi widget zsh)" 
+bindkey -M emacs '^G' _navi_widget
+bindkey -M viins '^G' _navi_widget
+bindkey -M main  '^G' _navi_widget
 
 # yaziの設定
 function y() {
