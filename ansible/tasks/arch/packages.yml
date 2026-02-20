@@ -86,6 +86,8 @@
     - nb
     - bluez-utils
     - blueman
+    - swww
+    - rofi-wayland
 
 # セキュリティのため、許可設定ファイルを削除
 - name: Remove passwordless pacman config

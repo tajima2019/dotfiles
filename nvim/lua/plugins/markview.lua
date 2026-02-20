@@ -34,7 +34,7 @@ return {
 
       -- 引用ブロックのカスタムカラー設定
       local callout_colors = {
-        note = { bg = "#2f343a", fg = "#86909e" },    -- Note, Info
+        note = { bg = "#2a3045", fg = "#3388cc" },    -- Note, Info
         ok = { bg = "#2a3b35", fg = "#4ea886" },      -- Success, Tip
         warn = { bg = "#3b3626", fg = "#d4b05a" },    -- Question, Warning
         error = { bg = "#3d2929", fg = "#d96c6c" },   -- Error, Danger

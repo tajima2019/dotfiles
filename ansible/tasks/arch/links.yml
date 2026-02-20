@@ -12,6 +12,7 @@
     - hypr
     - waybar
     - wofi
+    - rofi
 
 # リンク設定
 - name: Link Arch Linux specific configs
@@ -24,6 +25,7 @@
     - { src: "hypr", dest: "hypr" }
     - { src: "waybar", dest: "waybar" }
     - { src: "wofi", dest: "wofi" }
+    - { src: "rofi", dest: "rofi" }
 
 # SDDMの設定 (Arch Linux)
 - name: Deploy SDDM config (sddm.conf)
