@@ -1,4 +1,4 @@
-model = "gpt-5.3-codex"
+model = "gpt-5.4"
 model_reasoning_effort = "high"
 model_verbosity = "medium"
 
@@ -19,3 +19,7 @@ args = ["exec", "--yes", "@playwright/mcp@latest"]
 
 [notice.model_migrations]
 gpt-5-codex = "gpt-5.3-codex"
+"gpt-5.3-codex" = "gpt-5.4"
+
+[projects."/home/kento/.nb/home"]
+trust_level = "trusted"

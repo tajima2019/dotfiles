@@ -28,4 +28,24 @@ opt.fileencoding = "utf-8"                  -- ファイルの文字コード
 
 opt.foldmethod = "expr"                     -- 折りたたみ
 opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-opt.foldlevel = 99                          -- 開始時は全て展開
+opt.foldlevel = 99                           -- 開始時は全て展開
+
+-- Markdown は見出しを優先して折りたたみを作る（zaで安定して開閉）
+_G.markdown_heading_foldexpr = function()
+  local line = vim.fn.getline(vim.v.lnum)
+  local hashes = line:match("^(#+)%s+")
+
+  if hashes then
+    return ">" .. #hashes
+  end
+
+  return "="
+end
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function()
+    vim.opt_local.foldmethod = "expr"
+    vim.opt_local.foldexpr = "v:lua.markdown_heading_foldexpr()"
+  end,
+})

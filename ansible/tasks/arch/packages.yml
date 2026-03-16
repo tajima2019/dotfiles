@@ -104,4 +104,5 @@
   loop:
     - tree-sitter-cli
     - "@openai/codex"
+    - "@github/copilot"
   become: true
