@@ -12,6 +12,7 @@ return {
         changedelete = { text = '~' },
         untracked    = { text = '┆' },
       },
+      current_line_blame = true, -- カーソル行の変更履歴を表示
     },
   },
 }
