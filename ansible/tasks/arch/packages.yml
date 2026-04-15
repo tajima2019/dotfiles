@@ -62,6 +62,10 @@
     - python-pip
     - python-pynvim
     - typst
+    # -- ロック画面用 --
+    - hyprlock
+    # -- 壁紙 --
+    - awww
 
   become: true
 
@@ -86,7 +90,6 @@
     - nb
     - bluez-utils
     - blueman
-    - swww
     - rofi-wayland
 
 # セキュリティのため、許可設定ファイルを削除

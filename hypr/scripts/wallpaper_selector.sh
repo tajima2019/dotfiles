@@ -14,7 +14,7 @@ done
 SELECTED_WALLPAPER=$(echo -e -n "$MENU_STRING" | rofi -dmenu -i -p "Wallpapers" -show-icons -theme ~/.config/rofi/wallpaper.rasi)
 
 if [ -n "$SELECTED_WALLPAPER" ]; then
-  swww img "$WALLPAPER_DIR/$SELECTED_WALLPAPER" --transition-type grow --transition-pos center --transition-step 100
+  awww img "$WALLPAPER_DIR/$SELECTED_WALLPAPER" --transition-type grow --transition-pos center --transition-step 100
 
   notify-send "Wallpaper Changed" "$SELECTED_WALLPAPER"
 fi
