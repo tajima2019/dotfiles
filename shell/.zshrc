@@ -51,3 +51,4 @@ fi
 # the fuck 設定
 eval "$(thefuck --alias)"
 
+command -v brew >/dev/null 2>&1 && export PATH="$(brew --prefix)/bin:$PATH"

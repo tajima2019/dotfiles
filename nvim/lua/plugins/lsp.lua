@@ -80,7 +80,7 @@ return {
         filetypes = { "matlab" },
         settings = {
           MATLAB = {
-            installPath = "/Applications/MATLAB_R2024b.app", -- MATLABのインストールパスを指定
+            installPath = "/Applications/MATLAB_R2025b.app", -- MATLABのインストールパスを指定
             indexWorkspace = true,
             matlabConnectionTiming = "onStart",
             telemetry = false,

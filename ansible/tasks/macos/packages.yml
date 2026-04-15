@@ -17,6 +17,7 @@
     name: "{{ item }}"
     state: present
   loop:
+    - pngpaste
     - navi
     - fzf
     - cmatrix
