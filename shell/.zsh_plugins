@@ -1,5 +1,6 @@
 # zsh-autosuggestions の非同期モードを無効化（エラー対策）
 ZSH_AUTOSUGGEST_USE_ASYNC=
+
 # 履歴ファイルの保存場所
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
@@ -9,17 +10,6 @@ setopt share_history
 
 # Sheldon の初期化 
 eval "$(sheldon source)"
-
-# zsh-vi-modeと競合せずにzsh-history-substring-search の設定
-function zvm_after_init() {
-  # 上矢印キーと Ctrl + P で履歴検索
-  bindkey '^[[A' history-substring-search-up
-  bindkey '^P' history-substring-search-up
-
-  # 下矢印キーと Ctrl + N で履歴検索
-  bindkey '^[[B' history-substring-search-down
-  bindkey '^N' history-substring-search-down
-}
 
 # 存在するパスを見つけて読み込む関数
 source_if_exists() {
@@ -36,11 +26,36 @@ source_if_exists "${syntax_highlight_paths[@]}"
 
 autoload -Uz compinit && compinit
 
+# zsh-history-substring-search のキーバインド設定
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+
 # navi をCtrl + gで呼び出し
 eval "$(navi widget zsh)" 
 bindkey -M emacs '^G' _navi_widget
 bindkey -M viins '^G' _navi_widget
 bindkey -M main  '^G' _navi_widget
+
+# zoxide
+eval "$(zoxide init zsh)"
+
+# fzf
+source <(fzf --zsh)
+
+# the fuck 設定
+eval "$(thefuck --alias)"
+
+# abbr 設定
+
+# スペースキーで展開してスペースを挿入する
+#if [[ -n "$widgets[abbr-expand-and-insert]" ]]; then
+#  bindkey ' ' abbr-expand-and-insert
+#fi
+
+# エンターキーで展開して実行する
+#if [[ -n "$widgets[abbr-expand-and-accept]" ]]; then
+#  bindkey '^M' abbr-expand-and-accept
+#fi
 
 # yaziの設定
 function y() {
@@ -52,9 +67,3 @@ function y() {
 
   rm -f -- "$tmp"
 }
-
-# zoxide
-eval "$(zoxide init zsh)"
-
-# fzf
-source <(fzf --zsh)

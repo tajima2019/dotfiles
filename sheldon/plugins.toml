@@ -1,7 +1,6 @@
 # シェルの設定
 shell = "zsh"
 
-
 [templates]
 defer = "{% for file in files %}zsh-defer source \"{{ file }}\"\n{% endfor %}"
 
@@ -19,8 +18,9 @@ apply = ["defer"]
 [plugins.zsh-history-substring-search]
 github = "zsh-users/zsh-history-substring-search"
 
-[plugins.zsh-vi-mode]
-github = "jeffreytse/zsh-vi-mode"
-
 [plugins.zsh-syntax-highlighting]
 github = "zsh-users/zsh-syntax-highlighting"
+
+[plugins.zsh-abbr]
+github = "olets/zsh-abbr"
+

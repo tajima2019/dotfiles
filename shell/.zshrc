@@ -13,26 +13,6 @@ export NVM_DIR="$HOME/.nvm"
 export EDITOR='nvim'
 export VISUAL='nvim'
 
-# -- conda初期設定 --
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/opt/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/opt/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/opt/anaconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/opt/anaconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-
-# -- エイリアス設定 --
-alias vim="nvim"
-alias vi="nvim"
-
 # -- 自作関数の読み込み --
 if [ -f ~/.zsh_functions ]; then
   source ~/.zsh_functions
@@ -48,7 +28,8 @@ if [ -f ~/.zsh_plugins ]; then
   source ~/.zsh_plugins
 fi
 
-# the fuck 設定
-eval "$(thefuck --alias)"
-
+# -- エイリアス設定 --
+abbr add -f vim='nvim' > /dev/null 2>&1
+abbr add -f vi='nvim' > /dev/null 2>&1
 command -v brew >/dev/null 2>&1 && export PATH="$(brew --prefix)/bin:$PATH"
+
