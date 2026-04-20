@@ -11,6 +11,12 @@ return {
             treesitter = false,
           },
         },
+        pickers = {
+          find_files = {
+            hidden = true,
+            file_ignore_patterns = { "node_modules", ".git" },
+          }
+        }
       })
 
       local builtin = require("telescope.builtin")
