@@ -31,5 +31,11 @@ fi
 # -- エイリアス設定 --
 abbr add -f vim='nvim' > /dev/null 2>&1
 abbr add -f vi='nvim' > /dev/null 2>&1
+abbr add -f cd='z' > /dev/null 2>&1
+
 command -v brew >/dev/null 2>&1 && export PATH="$(brew --prefix)/bin:$PATH"
 
+# -- claude code --
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
+
+export PATH="$HOME/.local/bin:$PATH"

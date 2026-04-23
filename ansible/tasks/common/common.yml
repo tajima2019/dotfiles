@@ -4,3 +4,10 @@
     - "links.yml"
   loop_control:
     loop_var: include_file
+
+- name: Install Claude Code
+  ansible.builtin.shell:
+    cmd: curl -fsSL https://claude.ai/install.sh | bash
+    executable: /bin/bash
+  args:
+    creates: "~/.local/bin/claude"
